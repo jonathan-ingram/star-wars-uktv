@@ -1,0 +1,97 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #010409;
+}
+
+::selection {
+  @apply text-white bg-green-500;
+}
+
+.ff-tnum {
+  -webkit-font-feature-settings: 'kern' 1, 'tnum' 1;
+  -moz-font-feature-settings: 'kern' 1, 'tnum' 1;
+  -o-font-feature-settings: 'kern' 1, 'tnum' 1;
+  -ms-font-feature-settings: 'kern' 1, 'tnum' 1;
+  font-feature-settings: 'kern' 1, 'tnum' 1;
+}
+
+.ff-tnum-zero {
+  -webkit-font-feature-settings: 'kern' 1, 'tnum' 1, 'zero';
+  -moz-font-feature-settings: 'kern' 1, 'tnum' 1, 'zero';
+  -o-font-feature-settings: 'kern' 1, 'tnum' 1, 'zero';
+  -ms-font-feature-settings: 'kern' 1, 'tnum' 1, 'zero';
+  font-feature-settings: 'kern' 1, 'tnum' 1, 'zero';
+}
+
+.loader {
+  animation: spinner 1.5s linear infinite;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.animation-tv-reveal {
+  animation: keyframes-tv-reveal 1800ms cubic-bezier(0.8, 0, 0.2, 1);
+}
+
+@keyframes keyframes-tv-reveal {
+  0%, 15% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+.animation-grow {
+  animation: keyframes-grow 1600ms ease-in-out;
+}
+
+@keyframes keyframes-grow {
+  0%, 60% {
+    transform: translateY(20px) scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@responsive {
+  .max-w-2xs {
+    max-width: 16rem;
+  }
+
+  .min-w-lg {
+    min-width: 32rem;
+  }
+}
+
+@variants hover, focus, dark {
+  .shadow-white {
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 0px 15px, rgba(255, 255, 255, 0.06) 0px 0px 3px 1px;
+  }
+}
+
+@media (prefers-reduced-motion) {
+  .transition-transform {
+    transition: unset;
+  }
+
+  .animation-tv-reveal, .animation-grow, .loader {
+    animation: none;
+  }
+}
