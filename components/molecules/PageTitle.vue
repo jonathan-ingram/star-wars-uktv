@@ -6,9 +6,9 @@
         {{ title }}
       </h1>
 
-      <h1 class="text-base font-bold text-white opacity-50">
+      <h2 class="text-base font-bold text-white opacity-50">
         {{ subtitle }}
-      </h1>
+      </h2>
 
     </div>
   </header>

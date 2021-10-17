@@ -228,42 +228,44 @@ export default Vue.extend({
       this.loading = true
       this.displaySearchData = null
 
-      if (this.searchData[this.searchFormCategory].length === 0) { // only call API if our data collection is empty
-      	let apiRequest = new Promise((fulfill, reject) => {
-
-          let apiData: any = []
-
-          let getSwapiData = (apiUrl: string) => {
-      			this.$axios.$get(apiUrl).then((data: any) => {
-
-              apiData = apiData.concat(data.results)
-
-              data.next ? getSwapiData(data.next) : allDataCollected(apiData)
-
-      			}, (err: any) => {
-              this.loading = false
-              this.errorMessage = true
-      				reject(err.data)
-      			})
-      		}
-
-      		let allDataCollected = (data: any) => {
-            this.searchData[this.searchFormCategory] = data // collect data to re-use again without re-calling API
-            this.sortData()
-      			fulfill(true)
-      		}
-
-      		getSwapiData(this.apiUrl + this.searchFormCategory + '/')
-      	})
-      }
-      else {
+      if (this.searchData[this.searchFormCategory].length > 0) {
         this.sortData()
+        return
       }
+
+      // only call API if our data collection is empty
+
+    	const apiRequest = new Promise((resolve, reject) => {
+
+        let apiData: any = []
+
+        const getSwapiData = (apiUrl: string) => {
+    			this.$axios.$get(apiUrl).then((data: any) => {
+
+            apiData = apiData.concat(data.results)
+
+            data.next ? getSwapiData(data.next) : allDataCollected(apiData)
+
+    			}, (err: any) => {
+            this.loading = false
+            this.errorMessage = true
+    				reject(err.data)
+    			})
+    		}
+
+    		const allDataCollected = (data: any) => {
+          this.searchData[this.searchFormCategory] = data // collect data to re-use again without re-calling API
+          this.sortData()
+    			resolve(true)
+    		}
+
+    		getSwapiData(this.apiUrl + this.searchFormCategory + '/')
+    	})
 
     },
 
     sortData (): void {
-      let fieldToSort: FieldTitle = this.searchFormCategory === 'films' ? 'title' : 'name'
+      const fieldToSort: FieldTitle = this.searchFormCategory === 'films' ? 'title' : 'name'
 
       if (this.searchFormOrder === 'asc') {
         this.searchData[this.searchFormCategory].sort((a: any, b: any) => a[fieldToSort].localeCompare(b[fieldToSort]))

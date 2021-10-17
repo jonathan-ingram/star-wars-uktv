@@ -43,3 +43,4 @@ Below are bits and bobs that I would have tackled had there been more time...
 * I would have liked more time to clean-up the remaining ARIA roles that needed adding/tweaking.
 * I installed the plugin `vue-scrollto` but sadly I ran out of time to implement it (as it would have been nice to scroll down to the search results for smartphone users).
 * I also installed `dayjs` to help format the film dates, but again time was against me.
+* The `index` template got rather long at the end, so with more time I'd like to split this into further components.
